@@ -1,2 +1,1 @@
-# common
-Scripts and utilities shared across CeTZ repositories.
+Scripts and utilities for use with Typst packages.
