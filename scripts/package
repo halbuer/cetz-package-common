@@ -49,6 +49,8 @@ files=(
   typst.toml
   LICENSE
   README.md
+)
+optional_files=(
   manual.typ
   manual.pdf
 )
@@ -90,6 +92,10 @@ TMP="$(mktemp -d)"
 for f in "${files[@]}"; do
   mkdir -p "$TMP/$(dirname "$f")" 2>/dev/null
   cp -r "$PKG_ROOT/$f" "$TMP/$f"
+done
+for f in "${optional_files[@]}"; do
+  mkdir -p "$TMP/$(dirname "$f")" 2>/dev/null
+  cp -r "$PKG_ROOT/$f" "$TMP/$f" 2>/dev/null || true
 done
 
 TARGET="${TARGET:?}/${PKG_NAME:?}/${PKG_VERSION:?}"
