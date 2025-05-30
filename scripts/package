@@ -38,10 +38,6 @@ fi
 
 PKG_VERSION="$(read-toml "$PKG_ROOT/typst.toml" "version")"
 
-echo "Package root:    $PKG_ROOT"
-echo "Package name:    $PKG_NAME"
-echo "Package version: $PKG_VERSION"
-
 # List of all files that get packaged
 files=(
   src/
@@ -63,6 +59,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 else
   DATA_DIR="${APPDATA}"
 fi
+DATA_DIR="${TYPST_PACKAGE_PATH:-${DATA_DIR}/typst/packages}"
 
 TARGET="${1:?Missing target path or @local}"; shift
 
@@ -73,6 +70,11 @@ while [[ $# -gt 0 ]]; do
       OPT_RELATIVE_PATHS=true
       shift
       ;;
+    --version)
+      shift
+      PKG_VERSION="$1"
+      shift
+      ;;
     *)
       echo "Unexpected option $1!"
       exit 1
@@ -80,11 +82,16 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+echo "Package root:    $PKG_ROOT"
+echo "Package name:    $PKG_NAME"
+echo "Package version: $PKG_VERSION"
+
 if [[ "$TARGET" == "@local" ]] || [[ "$TARGET" == "install" ]]; then
-  TARGET="${DATA_DIR}/typst/packages/local/"
+  TARGET="${DATA_DIR}/local/"
 elif [[ "$TARGET" == "@preview" ]]; then
-  TARGET="${DATA_DIR}/typst/packages/preview/"
+  TARGET="${DATA_DIR}/preview/"
 fi
+
 echo "Install dir: $TARGET"
 
 TMP="$(mktemp -d)"
