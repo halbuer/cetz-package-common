@@ -42,6 +42,7 @@ PKG_VERSION="$(read-toml "$PKG_ROOT/typst.toml" "version")"
 files=(
   src/
   gallery/
+  cetz-core/cetz_core.wasm
   typst.toml
   LICENSE
   README.md
