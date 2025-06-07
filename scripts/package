@@ -41,7 +41,6 @@ PKG_VERSION="$(read-toml "$PKG_ROOT/typst.toml" "version")"
 # List of all files that get packaged
 files=(
   src/
-  cetz-core/cetz_core.wasm
   gallery/
   typst.toml
   LICENSE
@@ -50,6 +49,7 @@ files=(
 optional_files=(
   manual.typ
   manual.pdf
+  cetz-core/cetz_core.wasm
 )
 
 # Local package directories per platform
