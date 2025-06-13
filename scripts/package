@@ -4,7 +4,7 @@ set -eu
 SCRIPT_DIR="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 
 if (( $# < 1 )) || [[ "${1:-}" == "help" ]]; then
-  echo "package TARGET [--relative-paths]"
+  echo "package TARGET [--relative-paths] [--version VERSION]"
   echo ""
   echo "Packages all relevant files into a directory named '${PKG_NAME}/<version>'"
   echo "at TARGET. If TARGET is set to @local, the local Typst package directory"
@@ -50,6 +50,7 @@ files=(
 optional_files=(
   manual.typ
   manual.pdf
+  cetz-core/cetz_core.wasm
 )
 
 # Local package directories per platform
